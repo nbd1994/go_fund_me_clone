@@ -79,7 +79,7 @@ function FundraiserCarousel({ slides }: { slides: any[] }) {
 // Fundraiser Details component
 function FundraiserDetails() {
     return (
-        <div className="bg-white rounded-2xl p-8 shadow border space-y-6">
+        <div className="bg-white rounded-2xl p-4 md:p-8 shadow border space-y-6">
             {/* Author */}
             <div className="flex items-center gap-4">
                 <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-400 text-xl">
@@ -116,7 +116,7 @@ function FundraiserDetails() {
                 <a href="#" className="text-gray-900 underline font-semibold">Read more</a>
             </div>
             {/* Reactions */}
-            <div className="flex items-center gap-4 pt-2">
+            <div className="flex items-center gap-2 pt-2 px-1">
                 <span className="flex items-center gap-1 text-gray-700 text-lg font-medium">
                     <svg width="28" height="28" fill="none" stroke="#222" strokeWidth="2" viewBox="0 0 24 24">
                         <circle cx="12" cy="8" r="4" />
@@ -124,23 +124,21 @@ function FundraiserDetails() {
                     </svg>
                     React
                 </span>
-                <span className="text-2xl">❤️</span>
-                <span className="text-2xl">🩹</span>
-                <span className="text-2xl">💚</span>
-                <span className="text-2xl">💐</span>
-                <span className="text-2xl">🙏</span>
-                <span className="text-2xl">👏</span>
-                <span className="text-2xl">✨</span>
-                <span className="text-lg font-semibold text-gray-700">25</span>
+                <span className="text-xl md:text-2xl">❤️</span>
+                <span className="text-xl md:text-2xl">🩹</span>
+                <span className="text-xl md:text-2xl">💚</span>
+                <span className="text-xl md:text-2xl">💐</span>
+                <span className="text-xl md:text-2xl">🙏</span>
+                <span className="text-xl md:text-2xl">👏</span>
+                <span className="text-xl md:text-2xl">✨</span>
             </div>
-            <hr />
         </div>
     );
 }
 
 function FundraiserUpdates() {
     return (
-        <div className="bg-white rounded-2xl p-8 shadow border mt-8">
+        <div className="bg-white rounded-2xl p-4  md:p-8 shadow border mt-8">
             <div className="flex items-center gap-3 mb-6">
                 <h2 className="text-2xl font-extrabold">Updates</h2>
                 <span className="bg-gray-100 text-gray-700 text-sm font-bold px-2 py-0.5 rounded">2</span>
@@ -197,21 +195,132 @@ function FundraiserUpdates() {
                     Share
                 </button>
             </div>
-            <hr className="mt-8" />
         </div>
     );
 }
 
-// Donation Summary (sticky right) component
+
+// Donation Summary (sticky right/floating bottom on mobile) component
 function DonationSummary() {
     return (
-        <aside className="w-full max-w-sm">
-            <div className="sticky top-24">
-                <div className="bg-white rounded-2xl border p-6 shadow flex flex-col gap-6">
-                    {/* Progress circle and stats */}
-                    <div className="flex items-center gap-4">
-                        <div className="relative w-16 h-16">
-                            <svg className="w-16 h-16" viewBox="0 0 36 36">
+        <>
+            {/* Desktop: sticky right */}
+            <aside className="w-full max-w-sm hidden md:block">
+                <div className="sticky top-24">
+                    <div className="bg-white rounded-2xl border p-6 shadow flex flex-col gap-6">
+                        {/* Progress circle and stats */}
+                        <div className="flex items-center gap-4">
+                            <div className="relative w-16 h-16">
+                                <svg className="w-16 h-16" viewBox="0 0 36 36">
+                                    <circle
+                                        cx="18"
+                                        cy="18"
+                                        r="16"
+                                        fill="none"
+                                        stroke="#eee"
+                                        strokeWidth="4"
+                                    />
+                                    <circle
+                                        cx="18"
+                                        cy="18"
+                                        r="16"
+                                        fill="none"
+                                        stroke="#22c55e"
+                                        strokeWidth="4"
+                                        strokeDasharray="100"
+                                        strokeDashoffset={100 - 70}
+                                        strokeLinecap="round"
+                                        style={{ transition: "stroke-dashoffset 0.5s" }}
+                                    />
+                                    <text
+                                        x="18"
+                                        y="22"
+                                        textAnchor="middle"
+                                        fontSize="12"
+                                        fontWeight="bold"
+                                        fill="#222"
+                                    >
+                                        70%
+                                    </text>
+                                </svg>
+                            </div>
+                            <div>
+                                <div className="text-2xl font-bold">£173,703 raised</div>
+                                <div className="text-gray-500 text-sm">£250K goal &middot; 5.9K donations</div>
+                            </div>
+                        </div>
+                        {/* Donate and Share buttons */}
+                        <button className="w-full bg-lime-200 text-green-900 font-bold py-4 rounded-full text-xl hover:bg-lime-300 transition">
+                            Donate now
+                        </button>
+                        <button className="w-full bg-green-900 text-lime-200 font-bold py-4 rounded-full text-xl hover:bg-green-800 transition">
+                            Share
+                        </button>
+                        {/* Recent donations */}
+                        <div>
+                            <div className="flex items-center gap-2 mb-4">
+                                <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-purple-100">
+                                    <svg width="20" height="20" fill="none" stroke="#a259d9" strokeWidth="2" viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"></path></svg>
+                                </span>
+                                <span className="text-lg font-bold text-purple-700">303 people just donated</span>
+                            </div>
+                            <ul className="space-y-4">
+                                <li className="flex items-center gap-3">
+                                    <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-100">
+                                        <svg width="22" height="22" fill="none" stroke="#222" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 21c-4.97 0-9-3.582-9-8 0-2.21 1.79-4 4-4 1.306 0 2.417.835 2.83 2h2.34c.413-1.165 1.524-2 2.83-2 2.21 0 4 1.79 4 4 0 4.418-4.03 8-9 8z"></path></svg>
+                                    </span>
+                                    <div>
+                                        <div className="font-semibold">Anonymous</div>
+                                        <div className="text-gray-800">
+                                            <span className="font-bold">£5</span> &middot; <span className="underline cursor-pointer">Recent donation</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li className="flex items-center gap-3">
+                                    <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-100">
+                                        <svg width="22" height="22" fill="none" stroke="#222" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 21c-4.97 0-9-3.582-9-8 0-2.21 1.79-4 4-4 1.306 0 2.417.835 2.83 2h2.34c.413-1.165 1.524-2 2.83-2 2.21 0 4 1.79 4 4 0 4.418-4.03 8-9 8z"></path></svg>
+                                    </span>
+                                    <div>
+                                        <div className="font-semibold">The Sky Is The Limit Competitions</div>
+                                        <div className="text-gray-800">
+                                            <span className="font-bold">£5,200</span> &middot; <span className="underline cursor-pointer">Top donation</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li className="flex items-center gap-3">
+                                    <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-100">
+                                        <svg width="22" height="22" fill="none" stroke="#222" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 21c-4.97 0-9-3.582-9-8 0-2.21 1.79-4 4-4 1.306 0 2.417.835 2.83 2h2.34c.413-1.165 1.524-2 2.83-2 2.21 0 4 1.79 4 4 0 4.418-4.03 8-9 8z"></path></svg>
+                                    </span>
+                                    <div>
+                                        <div className="font-semibold">Anonymous</div>
+                                        <div className="text-gray-800">
+                                            <span className="font-bold">£5</span> &middot; 5 mins
+                                        </div>
+                                    </div>
+                                </li>
+                                <li className="flex items-center gap-3">
+                                    <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-100">
+                                        <svg width="22" height="22" fill="none" stroke="#222" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 21c-4.97 0-9-3.582-9-8 0-2.21 1.79-4 4-4 1.306 0 2.417.835 2.83 2h2.34c.413-1.165 1.524-2 2.83-2 2.21 0 4 1.79 4 4 0 4.418-4.03 8-9 8z"></path></svg>
+                                    </span>
+                                    <div>
+                                        <div className="font-semibold">Anonymous</div>
+                                        <div className="text-gray-800">
+                                            <span className="font-bold">£20</span> &middot; 24 mins
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+            {/* Mobile: floating bottom bar */}
+            <div className="fixed md:hidden left-0 right-0 bottom-0 z-40 px-2 pb-2 pointer-events-none">
+                <div className="bg-white rounded-2xl border shadow flex flex-col gap-4 p-4 max-w-6/7 mx-auto pointer-events-auto">
+                    {/* Progress and stats */}
+                    <div className="flex items-center gap-3">
+                        <div className="relative w-12 h-12">
+                            <svg className="w-12 h-12" viewBox="0 0 36 36">
                                 <circle
                                     cx="18"
                                     cy="18"
@@ -236,7 +345,7 @@ function DonationSummary() {
                                     x="18"
                                     y="22"
                                     textAnchor="middle"
-                                    fontSize="12"
+                                    fontSize="10"
                                     fontWeight="bold"
                                     fill="#222"
                                 >
@@ -245,75 +354,22 @@ function DonationSummary() {
                             </svg>
                         </div>
                         <div>
-                            <div className="text-2xl font-bold">£173,703 raised</div>
-                            <div className="text-gray-500 text-sm">£250K goal &middot; 5.9K donations</div>
+                            <div className="text-lg font-bold">£173,703 raised</div>
+                            <div className="text-gray-500 text-xs">£250K goal &middot; 5.9K donations</div>
                         </div>
                     </div>
                     {/* Donate and Share buttons */}
-                    <button className="w-full bg-lime-200 text-green-900 font-bold py-4 rounded-full text-xl hover:bg-lime-300 transition">
-                        Donate now
-                    </button>
-                    <button className="w-full bg-green-900 text-lime-200 font-bold py-4 rounded-full text-xl hover:bg-green-800 transition">
-                        Share
-                    </button>
-                    {/* Recent donations */}
-                    <div>
-                        <div className="flex items-center gap-2 mb-4">
-                            <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-purple-100">
-                                <svg width="20" height="20" fill="none" stroke="#a259d9" strokeWidth="2" viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"></path></svg>
-                            </span>
-                            <span className="text-lg font-bold text-purple-700">303 people just donated</span>
-                        </div>
-                        <ul className="space-y-4">
-                            <li className="flex items-center gap-3">
-                                <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-100">
-                                    <svg width="22" height="22" fill="none" stroke="#222" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 21c-4.97 0-9-3.582-9-8 0-2.21 1.79-4 4-4 1.306 0 2.417.835 2.83 2h2.34c.413-1.165 1.524-2 2.83-2 2.21 0 4 1.79 4 4 0 4.418-4.03 8-9 8z"></path></svg>
-                                </span>
-                                <div>
-                                    <div className="font-semibold">Anonymous</div>
-                                    <div className="text-gray-800">
-                                        <span className="font-bold">£5</span> &middot; <span className="underline cursor-pointer">Recent donation</span>
-                                    </div>
-                                </div>
-                            </li>
-                            <li className="flex items-center gap-3">
-                                <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-100">
-                                    <svg width="22" height="22" fill="none" stroke="#222" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 21c-4.97 0-9-3.582-9-8 0-2.21 1.79-4 4-4 1.306 0 2.417.835 2.83 2h2.34c.413-1.165 1.524-2 2.83-2 2.21 0 4 1.79 4 4 0 4.418-4.03 8-9 8z"></path></svg>
-                                </span>
-                                <div>
-                                    <div className="font-semibold">The Sky Is The Limit Competitions</div>
-                                    <div className="text-gray-800">
-                                        <span className="font-bold">£5,200</span> &middot; <span className="underline cursor-pointer">Top donation</span>
-                                    </div>
-                                </div>
-                            </li>
-                            <li className="flex items-center gap-3">
-                                <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-100">
-                                    <svg width="22" height="22" fill="none" stroke="#222" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 21c-4.97 0-9-3.582-9-8 0-2.21 1.79-4 4-4 1.306 0 2.417.835 2.83 2h2.34c.413-1.165 1.524-2 2.83-2 2.21 0 4 1.79 4 4 0 4.418-4.03 8-9 8z"></path></svg>
-                                </span>
-                                <div>
-                                    <div className="font-semibold">Anonymous</div>
-                                    <div className="text-gray-800">
-                                        <span className="font-bold">£5</span> &middot; 5 mins
-                                    </div>
-                                </div>
-                            </li>
-                            <li className="flex items-center gap-3">
-                                <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-100">
-                                    <svg width="22" height="22" fill="none" stroke="#222" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 21c-4.97 0-9-3.582-9-8 0-2.21 1.79-4 4-4 1.306 0 2.417.835 2.83 2h2.34c.413-1.165 1.524-2 2.83-2 2.21 0 4 1.79 4 4 0 4.418-4.03 8-9 8z"></path></svg>
-                                </span>
-                                <div>
-                                    <div className="font-semibold">Anonymous</div>
-                                    <div className="text-gray-800">
-                                        <span className="font-bold">£20</span> &middot; 24 mins
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
+                    <div className="flex gap-2">
+                        <button className="flex-1 bg-lime-200 text-green-900 font-bold py-3 rounded-full text-base hover:bg-lime-300 transition">
+                            Donate now
+                        </button>
+                        <button className="flex-1 bg-green-900 text-lime-200 font-bold py-3 rounded-full text-base hover:bg-green-800 transition">
+                            Share
+                        </button>
                     </div>
                 </div>
             </div>
-        </aside>
+        </>
     );
 }
 
@@ -342,7 +398,7 @@ const slides = [
 
 export default function Detail() {
     return (
-        <main className="px-10">
+        <main>
             <Header />
             <div className="mt-4 mx-auto py-5 px-4">
                 <h1 className="text-4xl font-extrabold mb-4">Help Ivanna Potts Get Lifesaving Heart Surgery in America</h1>

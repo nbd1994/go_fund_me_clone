@@ -1,6 +1,7 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
+import { Pause, Play } from "lucide-react"
 
 const steps = [
   {
@@ -85,27 +86,27 @@ function StepButton({
     >
       {/* Left arrow */}
       <span
-        className={`w-0 h-0 border-t-8 border-b-8 border-r-8 border-t-transparent border-b-transparent ${
+        className={`hidden sm:inline-block w-0 h-0 border-t-8 border-b-8 border-r-8 border-t-transparent border-b-transparent ${
           active
-            ? "border-r-gray-900"
+            ? "border-r-green-600"
             : completed
-            ? "border-r-gray-900"
+            ? "border-r-green-600"
             : "border-r-gray-300"
-        } mr-2 group-hover:border-r-gray-900`}
+        } mr-2 group-hover:border-r-green-600`}
       ></span>
       {/* Number circle */}
       <span
-        className={`w-16 h-16 flex items-center justify-center rounded-full border-2 text-2xl font-bold transition-all
+        className={`w-12 h-12 flex items-center justify-center rounded-full border-2 text-2xl font-bold transition-all
           ${
             active
-              ? "bg-gray-900 text-white border-gray-900"
+              ? "bg-green-600 text-white border-green-600"
               : completed
-              ? "bg-white text-gray-900 border-gray-300"
+              ? "bg-white text-green-600 border-green-600"
               : "bg-white text-gray-900 border-gray-300"
           }
           ${
             !active
-              ? "group-hover:text-white group-hover:border-gray-900 cursor-pointer transition-colors duration-200"
+              ? "group-hover:text-green-600 group-hover:border-green-600 cursor-pointer transition-colors duration-200"
               : ""
           }
         `}
@@ -115,7 +116,7 @@ function StepButton({
             active
               ? "text-white"
               : completed
-              ? "text-gray-900"
+              ? "text-green-600"
               : "text-gray-900"
           }`}
         >
@@ -126,11 +127,49 @@ function StepButton({
   )
 }
 
+const STEP_DURATION = 6000 // 3 seconds
+
 export default function StepsSection() {
   const [currentStep, setCurrentStep] = useState(0)
+  const [playing, setPlaying] = useState(true)
+  const [progress, setProgress] = useState(0)
+  const intervalRef = useRef<NodeJS.Timeout | null>(null)
+
+  // Handle auto-advance and progress bar
+  useEffect(() => {
+    if (!playing) {
+      if (intervalRef.current) clearInterval(intervalRef.current)
+      return
+    }
+
+    setProgress(0)
+    intervalRef.current = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) {
+          // Advance to next step
+          setCurrentStep((prevStep) => (prevStep + 1) % steps.length)
+          return 0
+        }
+        return prev + 100 / (STEP_DURATION / 100)
+      })
+    }, 100)
+
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current)
+    }
+  }, [currentStep, playing])
+
+  // Reset progress when step changes manually
+  const handleStepClick = (idx: number) => {
+    setCurrentStep(idx)
+    setProgress(0)
+  }
+
+  // Play/Pause toggle
+  const handlePlayPause = () => setPlaying((p) => !p)
 
   return (
-    <section className="w-full py-20 px-4 sm:px-6 lg:px-8 bg-white">
+    <section className="w-full pt-15 pb-8 md:py-20 px-4 sm:px-6 lg:px-8 bg-white">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-3xl sm:text-3xl font-bold text-gray-900 text-center mb-16">
           Fundraising on GoFundMe is easy, 
@@ -138,10 +177,28 @@ export default function StepsSection() {
            powerful, and trusted.
         </h2>
 
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="grid md:grid-cols-2 gap-12 items-center mx-6 md:mx-10">
           {/* Left side - visual representation */}
-          <div className="bg-green-600 rounded-3xl p-8 text-white relative h-140 flex flex-col justify-center min-h-[400px]">
+          <div className="bg-green-600 rounded-3xl p-8 text-white relative h-140 max-w-125 flex flex-col justify-center min-h-[400px]">
+            {/* Play/Pause button */}
+            <button
+              className="absolute top-6 right-6 bg-white/80 hover:bg-white text-green-600 rounded-full w-8 h-8 flex items-center justify-center shadow transition"
+              onClick={handlePlayPause}
+              aria-label={playing ? "Pause" : "Play"}
+            >
+              {playing ? <Pause size={24} /> : <Play size={24} />}
+            </button>
             {steps[currentStep].visual}
+            {/* Progress bar */}
+            <div className="absolute left-0 bottom-0 w-full h-2 bg-white/30 rounded-b-3xl overflow-hidden">
+              <div
+                className="h-full bg-white"
+                style={{
+                  width: `${progress}%`,
+                  transition: "width 0.1s linear",
+                }}
+              />
+            </div>
           </div>
 
           {/* Right side - steps */}
@@ -153,7 +210,7 @@ export default function StepsSection() {
                     step={idx + 1}
                     active={currentStep === idx}
                     completed={currentStep > idx}
-                    onClick={() => setCurrentStep(idx)}
+                    onClick={() => handleStepClick(idx)}
                   />
                   <h3 className="text-xl font-bold text-gray-900">{step.title}</h3>
                 </div>

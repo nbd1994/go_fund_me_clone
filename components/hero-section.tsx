@@ -42,15 +42,18 @@ export default function HeroSection() {
               </Button>
             </div>
 
-            {categories.map((cat) => (
-              <div
-                key={cat.label}
-                className="absolute"
-                style={cat.style}
-              >
-                <CauseCircle label={cat.label} image={cat.image} />
-              </div>
-            ))}
+            <div className="hidden sm:block">
+              {categories.map((cat) => (
+                <div
+                  key={cat.label}
+                  className="absolute"
+                  style={cat.style}
+                >
+                  <CauseCircle label={cat.label} image={cat.image} />
+                </div>
+              ))}
+            </div>
+
           </div>
         </div>
       </section>

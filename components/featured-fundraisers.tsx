@@ -67,57 +67,86 @@ export default function FeaturedFundraisers() {
           </div>
         </div>
 
-<div className="grid grid-cols grid-cols-4 gap-2 mt-8">
-  {/* Left: Large featured fundraiser */}
-  <div className="col-span-2">
-    {/* Replace with your fundraiser card component or markup */}
-    <FundraiserCard
-      image="/help-maria-florida.jpg"
-      title="Në ndihmë të Nexhmiut me sklerozë multiple"
-      donations="1.2K donations"
-      amount="€56,320 raised"
-      progress={0.7}
-      large
-      href="/detail"
-    />
-  </div>
+        <div className="flex flex-col gap-4 sm:hidden">
+          <FundraiserCard
+            image="/medical-heart-surgery.jpg"
+            title="Help Ivanna Potts Get Lifesaving Heart Surgery in America"
+            donations="6.2K donations"
+            amount="£177,128 raised"
+            progress={0.8}
+          />
+          <FundraiserCard
+            image="/medical-multiple-sclerosis.jpg"
+            title="Hero - Sam Zitouni and his family"
+            donations="3K donations"
+            amount="£66,205 raised"
+            progress={0.95}
+          />
+          <FundraiserCard
+            image="/recovery-support-family.jpg"
+            title="Ken kämpft mit Alva gegen Krebs"
+            donations="1K donations"
+            amount="€31,564 raised"
+            progress={0.65}
+          />
+        </div>
+        <div className="sm:hidden flex justify-center mt-6">
+          <button className="w-full max-w-xs py-3 rounded-xl bg-white text-gray-900 font-semibold shadow border text-lg">
+            Show more
+          </button>
+        </div>
 
-  {/* Middle: Two stacked fundraisers */}
-  <div className="flex flex-col gap-6">
-    <FundraiserCard
-      image="/medical-heart-surgery.jpg"
-      title="Help Ivanna Potts Get Lifesaving Heart Surgery in America"
-      donations="5.9K donations"
-      amount="£173,462 raised"
-      progress={0.9}
-    />
-    <FundraiserCard
-      image="/medical-multiple-sclerosis.jpg"
-      title="Help for Maria Florinda Rios"
-      donations="2.5K donations"
-      amount="$112,008 raised"
-      progress={0.8}
-    />
-  </div>
+        <div className="hidden sm:grid grid-cols grid-cols-4 gap-2 mt-8">
+          {/* Left: Large featured fundraiser */}
+          <div className="col-span-2">
+            {/* Replace with your fundraiser card component or markup */}
+            <FundraiserCard
+              image="/help-maria-florida.jpg"
+              title="Në ndihmë të Nexhmiut me sklerozë multiple"
+              donations="1.2K donations"
+              amount="€56,320 raised"
+              progress={0.7}
+              large
+              href="/detail"
+            />
+          </div>
 
-  {/* Right: Two stacked fundraisers */}
-  <div className="flex flex-col gap-6">
-    <FundraiserCard
-      image="/medical-multiple-sclerosis.jpg"
-      title="Hero - Sam Zitouni and his family"
-      donations="2.9K donations"
-      amount="£64,799 raised"
-      progress={0.85}
-    />
-    <FundraiserCard
-      image="/recovery-support-family.jpg"
-      title="Support Lewis Rimmer’s Recovery and His Family"
-      donations="1.7K donations"
-      amount="£95,924 raised"
-      progress={0.75}
-    />
-  </div>
-</div>
+          {/* Middle: Two stacked fundraisers */}
+          <div className="flex flex-col gap-6">
+            <FundraiserCard
+              image="/medical-heart-surgery.jpg"
+              title="Help Ivanna Potts Get Lifesaving Heart Surgery in America"
+              donations="5.9K donations"
+              amount="£173,462 raised"
+              progress={0.9}
+            />
+            <FundraiserCard
+              image="/medical-multiple-sclerosis.jpg"
+              title="Help for Maria Florinda Rios"
+              donations="2.5K donations"
+              amount="$112,008 raised"
+              progress={0.8}
+            />
+          </div>
+
+          {/* Right: Two stacked fundraisers */}
+          <div className="flex flex-col gap-6">
+            <FundraiserCard
+              image="/medical-multiple-sclerosis.jpg"
+              title="Hero - Sam Zitouni and his family"
+              donations="2.9K donations"
+              amount="£64,799 raised"
+              progress={0.85}
+            />
+            <FundraiserCard
+              image="/recovery-support-family.jpg"
+              title="Support Lewis Rimmer’s Recovery and His Family"
+              donations="1.7K donations"
+              amount="£95,924 raised"
+              progress={0.75}
+            />
+          </div>
+        </div>
       </div>
     </section>
   )

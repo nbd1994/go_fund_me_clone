@@ -10,7 +10,7 @@ export default function BackgroundBubbles() {
   ];
 
   return (
-    <div className="absolute inset-0 bg-white overflow-hidden">
+    <div className="h-110 absolute inset-0 bg-white overflow-hidden">
       {bubbles.map((bubble) => (
         <div
           key={bubble.id}

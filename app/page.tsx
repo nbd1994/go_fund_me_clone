@@ -11,7 +11,7 @@ import Footer from "@/components/footer"
 
 export default function Home() {
   return (
-    <main className="w-full px-10">
+    <main className="w-full">
       <Header />
       <HeroSection />
       <StatisticsSection />

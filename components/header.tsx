@@ -102,7 +102,7 @@ export default function Header() {
                   <Link href="/about/contact" className="block px-4 py-2 hover:bg-gray-100 hover:text-green-700 transition-colors duration-150">Contact</Link>
                 </div>
               </div>
-              <Link href="/signin" className="text-gray-700 hover:text-gray-900">
+              <Link href="/sign-in" className="text-gray-700 hover:text-gray-900">
                 Sign in
               </Link>
               <Button className="bg-green-600 hover:bg-green-700 text-white rounded-full px-6">Start a GoFundMe</Button>
@@ -134,7 +134,7 @@ export default function Header() {
               <Link href="/about/company" onClick={() => setMobileMenuOpen(false)}>Company</Link>
               <Link href="/about/team" onClick={() => setMobileMenuOpen(false)}>Team</Link>
               <Link href="/about/contact" onClick={() => setMobileMenuOpen(false)}>Contact</Link>
-              <Link href="/signin" onClick={() => setMobileMenuOpen(false)}>Sign in</Link>
+              <Link href="/sign-in" onClick={() => setMobileMenuOpen(false)}>Sign in</Link>
               <Button className="bg-green-600 hover:bg-green-700 text-white rounded-full px-6 mt-4">Start a GoFundMe</Button>
             </nav>
           </div>

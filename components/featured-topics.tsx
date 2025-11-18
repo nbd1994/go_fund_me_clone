@@ -1,51 +1,20 @@
-"use client"
-
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
+import prisma from "@/lib/prisma"
 
-const topics = [
-  {
-    id: 1,
-    title: "GoFundMe Giving Funds",
-    description:
-      "A brand new product to make a bigger impact on the nonprofits you care about. The only Donor-Advised Fund backed by the world leader in giving.",
-    badge: "New",
-    badgeColor: "bg-purple-300",
-    image: "/gofundme-giving-funds-app.jpg",
-    action: "Learn more",
-    bgColor: "bg-green-100",
-  },
-  {
-    id: 2,
-    title: "Hurricane Melissa",
-    image: "/hurricane-melissa-disaster.jpg",
-    badge: "Natural disaster",
-    badgeColor: "bg-cyan-300",
-    action: "Donate now",
-    bgColor: "bg-white-200",
-  },
-  {
-    id: 3,
-    title: "Feeding communities",
-    image: "/feeding-communities-food.jpg",
-    badge: "Urgent cause",
-    badgeColor: "bg-red-300",
-    action: "Donate now",
-    bgColor: "bg-white",
-  },
-  {
-    id: 4,
-    title: "Fundraising FAQs: Israel/Gaza",
-    description: "Learn more about fundraising during the Israel-Gaza conflict.",
-    badge: "Urgent cause",
-    badgeColor: "bg-purple-300",
-    image: "/faq-help.jpg",
-    action: "Learn more",
-    bgColor: "bg-white",
-  },
-]
+async function getTopics() {
+  const topics = await prisma.topic.findMany({
+    orderBy: { id: "asc" },
+  })
+  await prisma.$disconnect()
+  return topics
+}
 
-export default function FeaturedTopics() {
+export default async function FeaturedTopics() {
+  const topics = await getTopics()
+
+  if (!topics.length) return null
+
   return (
     <section className="w-full py-20 px-4 sm:px-6 lg:px-8 bg-white">
       <div className="max-w-7xl mx-auto">
@@ -59,7 +28,7 @@ export default function FeaturedTopics() {
               className="object-cover group-hover:opacity-90 transition-opacity"
             />
             <span
-              className={`absolute top-4 left-4 ${topics[0].badgeColor} text-gray-900 px-3 py-1text-sm font-semibold`}
+              className={`absolute top-4 left-4 ${topics[0].badgeColor} text-gray-900 px-3 py-1 text-sm font-semibold`}
             >
               {topics[0].badge}
             </span>
@@ -74,7 +43,6 @@ export default function FeaturedTopics() {
         </div>
 
         <div className="grid md:grid-cols-3 gap-6">
-          {/* Grid of smaller topics */}
           {topics.slice(1).map((topic) => (
             <div key={topic.id} className={`${topic.bgColor} rounded-3xl overflow-hidden group cursor-pointer`}>
               <div className="relative h-56 bg-gray-200">
